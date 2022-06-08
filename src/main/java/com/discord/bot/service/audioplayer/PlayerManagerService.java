@@ -128,11 +128,17 @@ public class PlayerManagerService {
         event.replyEmbeds(embedBuilder.setDescription("Song paused")
                 .setColor(Color.GREEN).build()).queue();
     }
+    public void pauseTrackForTest(SlashCommandInteractionEvent event) {
+        getMusicManager(event).audioPlayer.setPaused(true);
+    }
 
     public void resumeTrack(SlashCommandInteractionEvent event, EmbedBuilder embedBuilder) {
         getMusicManager(event).audioPlayer.setPaused(false);
         event.replyEmbeds(embedBuilder.setDescription("Song resumed")
                 .setColor(Color.GREEN).build()).queue();
+    }
+    public void resumeTrackForTest(SlashCommandInteractionEvent event) {
+        getMusicManager(event).audioPlayer.setPaused(false);
     }
 
     public void skipToNextTrack(SlashCommandInteractionEvent event, EmbedBuilder embedBuilder) {
@@ -249,6 +255,13 @@ public class PlayerManagerService {
         musicManager.scheduler.queue.clear();
         audioManager.closeAudioConnection();
         event.replyEmbeds(embedBuilder.setDescription("Bye.").build()).queue();
+    }
+    public void leavePlayerForTest(SlashCommandInteractionEvent event) {
+        GuildMusicManager musicManager = this.getMusicManager(event);
+        AudioManager audioManager = event.getGuild().getAudioManager();
+        musicManager.scheduler.player.stopTrack();
+        musicManager.scheduler.queue.clear();
+        audioManager.closeAudioConnection();
     }
 
 }
