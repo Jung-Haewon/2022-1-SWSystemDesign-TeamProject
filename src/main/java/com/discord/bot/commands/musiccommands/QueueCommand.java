@@ -23,5 +23,10 @@ public class QueueCommand extends MusicPlayerCommand {
         return playerManagerService.isQueueNotEmpty(event);
     }
 
-    
+    public String ErrorMessageTest(SlashCommandInteractionEvent event) {
+        if(isValidState(event) == false)
+            return getFailDescription();
+        else
+            return null;
+    }
 }
